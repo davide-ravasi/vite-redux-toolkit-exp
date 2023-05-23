@@ -18,7 +18,7 @@ const UsersList = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  if (isLoading) return <Skeleton times={3} />;
+  if (isLoading) return <Skeleton times={3} className="h-10 w-full" />;
   if (error) return <div>{error}</div>;
 
   const renderedUsers = data.map((user: User) => {

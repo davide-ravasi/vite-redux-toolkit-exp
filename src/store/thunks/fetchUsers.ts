@@ -13,18 +13,23 @@ import axios from "axios";
   8 - export the thunk from the store/index.js file
   */
 
+interface MyData {
+  id: number;
+  name: string;
+}
 
 const fetchUsers = createAsyncThunk("users/fetch", async () => {
   const response = await axios.get("http://localhost:3005/users");
   await helper(1000);
-  return response.data;
+  console.log();
+  return response.data as MyData;
 });
 
-const helper = (duration) => {
-  return new Promise((resolve, reject) => {
-      setTimeout(() => {
-          resolve('done');
-      }, duration);
+const helper = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("done");
+    }, duration);
   });
 };
 
@@ -61,4 +66,4 @@ const helper = (duration) => {
     we can use these action types in reducer to handle the state
 */
 
-export {fetchUsers};
+export { fetchUsers };

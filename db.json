@@ -10,8 +10,35 @@
     },
     {
       "id": 3,
-
       "name": "Clementine Bauch"
+    },
+    {
+      "name": "Wayne Stehr",
+      "id": 4
+    },
+    {
+      "name": "Dr. Stephanie O'Reilly",
+      "id": 5
+    },
+    {
+      "name": "Kyle Turner",
+      "id": 6
+    },
+    {
+      "name": "Miss Pat Russel",
+      "id": 7
+    },
+    {
+      "name": "Delbert Schowalter",
+      "id": 8
+    },
+    {
+      "name": "Denise Sipes",
+      "id": 9
+    },
+    {
+      "name": "Owen Watsica",
+      "id": 10
     }
   ],
   "albums": [],

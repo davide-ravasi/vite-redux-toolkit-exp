@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUsers, RootState } from "../store";
+import { fetchUsers, addUser, RootState } from "../store";
 import Skeleton from "./Skeleton";
+import Button from './Button';
 
 interface User {
   id: number;
@@ -13,6 +14,10 @@ const UsersList = () => {
   const { data, isLoading, error } = useSelector(
     (state: RootState) => state.users
   );
+
+  const handleClick = () => {
+    dispatch(addUser());
+  }
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -28,11 +33,17 @@ const UsersList = () => {
           {user.name}
         </div>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div>
+      <div className="flex flex-row justify-between m-3">
+        <h1 className="m-2 text-xl">Users List</h1>
+        <Button primary onClick={handleClick}>
+          Add User
+        </Button>
+      </div>
       {renderedUsers}
     </div>
   );

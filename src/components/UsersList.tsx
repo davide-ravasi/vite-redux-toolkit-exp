@@ -25,7 +25,7 @@ const UsersList = () => {
     async function fetchData() {
       try {
         setIsLoadingData(true);
-        const data = await dispatch(fetchUsers()).unwrap();
+        await dispatch(fetchUsers()).unwrap();
       } catch (err) {
         setLoadingDataError(err.message);
       } finally {

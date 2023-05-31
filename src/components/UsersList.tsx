@@ -17,20 +17,36 @@ const UsersList = () => {
     (state: RootState) => state.users
   );
 
+  /*
+  @TODO
+  isCreatingUser
+  creatingUserError
+  */
   const handleClick = () => {
     dispatch(addUser());
   } 
 
   useEffect(() => {
+    // how to manage loading and error state
+    // inside a component
+    // when fetching data from an API
+    // using redux toolkit unwrap utility
+    // https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-results
     async function fetchData() {
-      try {
-        setIsLoadingData(true);
-        await dispatch(fetchUsers()).unwrap();
-      } catch (err) {
-        setLoadingDataError(err.message);
-      } finally {
-        setIsLoadingData(false);
-      }
+      setIsLoadingData(true);
+        /* 
+          The promise returned by the dispatched thunk 
+          has an unwrap property which can be called 
+          to extract the payload of a fulfilled action 
+          or to throw either the error 
+        */
+        dispatch(fetchUsers()).unwrap()
+        .catch((err) => {
+          setLoadingDataError(err.message);
+        })
+        .finally(() => {
+          setIsLoadingData(false);
+        })
     }
 
     fetchData();

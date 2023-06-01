@@ -19,6 +19,10 @@ const UsersList = () => {
     (state: RootState) => state.users
   );
 
+  /*
+  preview
+    const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
+  */
   const handleClick = () => {
     setIsCreatingUser(true);
     dispatch(addUser()).unwrap()

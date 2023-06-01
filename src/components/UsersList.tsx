@@ -13,17 +13,22 @@ const UsersList = () => {
   const dispatch = useDispatch();
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [loadingDataError, setLoadingDataError] = useState(null);
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [creatingUserError, setCreatingUserError] = useState(null);
   const { data } = useSelector(
     (state: RootState) => state.users
   );
 
-  /*
-  @TODO
-  isCreatingUser
-  creatingUserError
-  */
   const handleClick = () => {
-    dispatch(addUser());
+    setIsCreatingUser(true);
+    dispatch(addUser()).unwrap()
+    .catch((err) => {
+      setCreatingUserError(err.message);
+    })
+    .finally(() => {
+      setIsCreatingUser(false);
+    }
+    )
   } 
 
   useEffect(() => {
@@ -70,8 +75,9 @@ const UsersList = () => {
       <div className="flex flex-row justify-between m-3">
         <h1 className="m-2 text-xl">Users List</h1>
         <Button primary onClick={handleClick}>
-          Add User
+          {isCreatingUser ? 'Adding...' : 'Add User'}
         </Button>
+        {creatingUserError && <div>{creatingUserError}</div>}
       </div>
       {renderedUsers}
     </div>

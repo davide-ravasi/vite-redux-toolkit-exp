@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import { fetchUsers, addUser, RootState } from "../store";
 import Skeleton from "./Skeleton";
 import Button from './Button';
@@ -11,24 +11,14 @@ interface User {
 }
 
 const UsersList = () => {
-  const dispatch = useDispatch();
-  const [isCreatingUser, setIsCreatingUser] = useState(false);
-  const [creatingUserError, setCreatingUserError] = useState(null);
   const { data } = useSelector(
     (state: RootState) => state.users
   );
   const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
+  const [doCreatingUser, isCreatingUser, creatingUserError] = useThunk(addUser);
 
   const handleClick = () => {
-    setIsCreatingUser(true);
-    dispatch(addUser()).unwrap()
-    .catch((err) => {
-      setCreatingUserError(err.message);
-    })
-    .finally(() => {
-      setIsCreatingUser(false);
-    }
-    )
+    doCreatingUser(addUser);
   } 
 
   useEffect(() => {

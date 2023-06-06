@@ -25,31 +25,40 @@ const UsersList = () => {
     doFetchUsers();
   }, []);
 
-  if (isLoadingUsers) return <Skeleton times={3} className="h-10 w-full" />;
-  if (loadingUsersError) return <div>{loadingUsersError}</div>;
+  let content;
 
-  const renderedUsers = data.map((user: User) => {
-    return (
-      <div key={user.id} className="mb-2 border rounded">
-        <div className="flex p-2 justify-between items-center cursor-pointer">
-          {user.name}
+  if(isLoadingUsers) {
+    content = <Skeleton times={3} className="h-10 w-full" />
+  }
+  else if (loadingUsersError) {
+    content = <div>{loadingUsersError}</div>
+  } else {
+    content = data.map((user: User) => {
+      return (
+        <div key={user.id} className="mb-2 border rounded">
+          <div className="flex p-2 justify-between items-center cursor-pointer">
+            {user.name}
+          </div>
         </div>
-      </div>
-    );
-  });
+      );
+    });
+  }
 
   return (
     <div>
-      <div className="flex flex-row justify-between m-3">
+      <div className="flex flex-row justify-between items-center m-3">
         <h1 className="m-2 text-xl">Users List</h1>
-        <Button primary onClick={handleClick}>
-          {isCreatingUser ? 'Adding...' : 'Add User'}
+        <Button primary loading={isCreatingUser} onClick={handleClick}>
+          Add User
         </Button>
         {creatingUserError && <div>{creatingUserError}</div>}
       </div>
-      {renderedUsers}
+      {content}
     </div>
   );
 };
 
 export default UsersList;
+
+// add a prop to the button component 
+// to manage the loading state

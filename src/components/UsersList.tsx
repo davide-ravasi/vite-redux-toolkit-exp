@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUsers, addUser, RootState } from "../store";
+import { fetchUsers, addUser, removeUser, RootState } from "../store";
 import Skeleton from "./Skeleton";
 import Button from './Button';
 import { useThunk } from "../hooks/useThunk";
@@ -16,10 +16,16 @@ const UsersList = () => {
   );
   const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
   const [doCreatingUser, isCreatingUser, creatingUserError] = useThunk(addUser);
+  const {doRemoveUser, isRemovingUser, removingUserError} = useThunk(removeUser);
 
   const handleClick = () => {
     doCreatingUser(addUser);
   } 
+
+  const handleRemoveUser = (id: number) => {
+    console.log(id)
+    doRemoveUser(id);
+  }
 
   useEffect(() => {
     doFetchUsers();
@@ -38,6 +44,9 @@ const UsersList = () => {
         <div key={user.id} className="mb-2 border rounded">
           <div className="flex p-2 justify-between items-center cursor-pointer">
             {user.name}
+            <Button danger loading={isCreatingUser} onClick={() => handleRemoveUser(user.id)}>
+              X
+            </Button>
           </div>
         </div>
       );
@@ -59,6 +68,3 @@ const UsersList = () => {
 };
 
 export default UsersList;
-
-// add a prop to the button component 
-// to manage the loading state

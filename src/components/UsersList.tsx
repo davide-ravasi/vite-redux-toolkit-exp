@@ -16,14 +16,13 @@ const UsersList = () => {
   );
   const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
   const [doCreatingUser, isCreatingUser, creatingUserError] = useThunk(addUser);
-  const {doRemoveUser, isRemovingUser, removingUserError} = useThunk(removeUser);
+  const [doRemoveUser, isRemovingUser, removingUserError] = useThunk(removeUser);
 
   const handleClick = () => {
-    doCreatingUser(addUser);
-  } 
+    doCreatingUser();
+  }
 
   const handleRemoveUser = (id: number) => {
-    console.log(id)
     doRemoveUser(id);
   }
 
@@ -33,7 +32,7 @@ const UsersList = () => {
 
   let content;
 
-  if(isLoadingUsers) {
+  if (isLoadingUsers) {
     content = <Skeleton times={3} className="h-10 w-full" />
   }
   else if (loadingUsersError) {
@@ -44,9 +43,10 @@ const UsersList = () => {
         <div key={user.id} className="mb-2 border rounded">
           <div className="flex p-2 justify-between items-center cursor-pointer">
             {user.name}
-            <Button danger loading={isCreatingUser} onClick={() => handleRemoveUser(user.id)}>
+            <Button danger loading={isRemovingUser} onClick={() => handleRemoveUser(user.id)}>
               X
             </Button>
+            {removingUserError && <div>{removingUserError}</div>}
           </div>
         </div>
       );

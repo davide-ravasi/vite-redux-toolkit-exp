@@ -1,12 +1,14 @@
 import { useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 
-export const useThunk = (thunk) => {
+export type IUseThunkReturn = [(arg?: unknown) => void, boolean, null | string];
+
+export const useThunk = (thunk): IUseThunkReturn => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(null);
 
-  const runThunk = useCallback((arg: any) => {
+  const runThunk = useCallback((arg: unknown) => {
     setIsLoading(true);
     // how to manage loading and error state
     // inside a component
@@ -22,13 +24,13 @@ export const useThunk = (thunk) => {
     //     */
     dispatch(thunk(arg))
       .unwrap()
-      .catch((err) => {
+      .catch((err: { message: SetStateAction<null>; }) => {
         setLoadingError(err.message);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  },[dispatch, thunk]);
+  }, [dispatch, thunk]);
 
   return [runThunk, isLoading, loadingError];
 };

@@ -1,6 +1,7 @@
 import classNames from "classnames";
+import * as React from "react";
 
-function Skeleton({ times, className }: {times: number, className: string}) {
+function Skeleton({ times, className }: { times: number, className: string }) {
   const outerClassNames = classNames(
     "relative",
     "overflow-hidden",
@@ -23,11 +24,17 @@ function Skeleton({ times, className }: {times: number, className: string}) {
     .fill(0)
     .map((_, index) => {
       return <div key={index} className={outerClassNames}>
-        <div className={innerClassNames}/>
+        <div className={innerClassNames} />
       </div>;
     });
 
-  return boxes;
+  return (
+    <>
+      {boxes.map((el) => {
+        return el;
+      })}
+    </>
+  );
 }
 
 export default Skeleton;

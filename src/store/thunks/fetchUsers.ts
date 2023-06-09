@@ -19,7 +19,9 @@ interface MyData {
 }
 
 const fetchUsers = createAsyncThunk("users/fetch", async () => {
-  const response = await axios.get("http://localhost:3005/users");
+  const response = await axios.get(
+    `${import.meta.env.VITE_API_KEY_PATH}/users`
+  );
   await helper(1000);
   console.log();
   return response.data as MyData;

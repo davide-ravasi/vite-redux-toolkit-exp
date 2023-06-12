@@ -4,6 +4,7 @@ import { fetchUsers, addUser, removeUser, RootState } from "../store";
 import Skeleton from "./Skeleton";
 import Button from './Button';
 import { useThunk } from "../hooks/useThunk";
+import UsersListItem from "./UsersListItem";
 
 interface User {
   id: number;
@@ -40,18 +41,15 @@ const UsersList = () => {
   } else {
     content = data.map((user: User) => {
       return (
-        <div key={user.id} className="mb-2 border rounded">
-          <div className="flex p-2 justify-between items-center cursor-pointer">
-            {user.name}
-            <Button danger loading={isRemovingUser} onClick={() => handleRemoveUser(user.id)}>
-              X
-            </Button>
-            {removingUserError && <div>{removingUserError}</div>}
-          </div>
-        </div>
+        <UsersListItem key={user.id} user={user} />
       );
     });
   }
+
+  // create UsersListItem
+  // add .env to gitignore
+  // create icon GoTrashcan from "react-icons/go"
+  // 
 
   return (
     <div>

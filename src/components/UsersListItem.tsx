@@ -1,3 +1,5 @@
+import { GoTrashcan } from "react-icons/go";
+
 import { useThunk } from "../hooks/useThunk";
 import { removeUser } from "../store";
 import Button from "./Button";
@@ -23,7 +25,7 @@ const UsersListItem = ({user}: IUserListItemProps) => {
         <div className="flex p-2 justify-between items-center cursor-pointer">
           {user.name}
           <Button danger loading={isRemovingUser} onClick={() => handleRemoveUser(user.id)}>
-            X
+            <GoTrashcan />
           </Button>
           {removingUserError && <div>{removingUserError}</div>}
         </div>

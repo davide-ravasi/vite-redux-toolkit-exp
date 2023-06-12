@@ -17,14 +17,9 @@ const UsersList = () => {
   );
   const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
   const [doCreatingUser, isCreatingUser, creatingUserError] = useThunk(addUser);
-  const [doRemoveUser, isRemovingUser, removingUserError] = useThunk(removeUser);
 
   const handleClick = () => {
     doCreatingUser();
-  }
-
-  const handleRemoveUser = (id: number) => {
-    doRemoveUser(id);
   }
 
   useEffect(() => {
@@ -45,11 +40,6 @@ const UsersList = () => {
       );
     });
   }
-
-  // create UsersListItem
-  // add .env to gitignore
-  // create icon GoTrashcan from "react-icons/go"
-  // 
 
   return (
     <div>

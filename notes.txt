@@ -1,0 +1,22 @@
+album model:
+{
+    id: number
+    title: string
+    userId: number
+}
+
+query string to retrieve albums by userId
+/albums?userId=2
+
+create album
+POST /albums
+{title: "title", userId: 2}
+
+delete album
+DELETE /albums/33
+
+new components
+ExpandablePanel
+AlbumsList
+AlbumsListItem
+

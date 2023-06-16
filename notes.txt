@@ -20,3 +20,9 @@ ExpandablePanel
 AlbumsList
 AlbumsListItem
 
+// @todo first
+- PANEL
+---- change order DEL BTN --- NAME --- TOGGLE BTN
+- album list component
+
+

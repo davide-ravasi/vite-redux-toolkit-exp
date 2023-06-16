@@ -4,6 +4,7 @@ import { useThunk } from "../hooks/useThunk";
 import { removeUser } from "../store";
 import Button from "./Button";
 import Panel from "./Panel";
+import AlbumList from "./AlbumList";
 
 interface User {
   id: number;
@@ -22,24 +23,32 @@ const UsersListItem = ({ user }: IUserListItemProps) => {
     doRemoveUser(id);
   };
 
+  const handleAddAlbum = (id: number) => {
+    console.log(id);
+  }
+
   const header = (
     <div className="flex p-2 justify-between items-center cursor-pointer">
-      {user.name}
       <Button
         danger
         loading={isRemovingUser}
         onClick={() => handleRemoveUser(user.id)}
+        className="mr-3"
       >
         <GoTrashcan />
       </Button>
+      {user.name}
       {removingUserError && <div>{removingUserError}</div>}
     </div>
   );
 
   return (
     <Panel header={header}>
-      <div key={user.id} className="mb-2 border rounded">
-        content
+      <div key={user.id} className="border flex justify-between mb-2 p-2 rounded">
+        <AlbumList user={user} />
+        {/* <Button primary loading={false} onClick={() => handleAddAlbum(user.id)}>
+          Add Album
+        </Button> */}
       </div>
     </Panel>
   );

@@ -6,7 +6,7 @@ import Button from './Button';
 import { useThunk } from "../hooks/useThunk";
 import UsersListItem from "./UsersListItem";
 
-interface User {
+export interface User {
   id: number;
   name: string;
 }

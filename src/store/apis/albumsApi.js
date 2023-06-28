@@ -1,11 +1,29 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const aplbumsApi = createApi({
-    reducerPath: 'albums',
-    baseQuery: fetchBaseQuery({ 
+const albumsApi = createApi({
+    reducerPath: 'albums', // the key albums is the name of the slice
+    baseQuery: fetchBaseQuery({ // fetchBaseQuery is a wrapper around the fetch api
         baseUrl: 'http://localhost:3005' 
     }),
+    endpoints: (builder) => {  // the key endpoints is an object that contains all the requests
+        return {
+            fetchAlbums: builder.query({ // the key fetchAlbums generate a hook called useFetchAlbumsQuery
+                query: (user) => {
+                    return {
+                        url: `/albums`,
+                        method: 'GET',
+                        params: { // query params ex: /albums?userId=1
+                            userId: user.id,
+                        },
+                    }
+                },
+            }), 
+        }
+    },
 });
+
+export const { useFetchAlbumsQuery } = albumsApi; // export the hook
+export { albumsApi }; // export the api object
 
 /*
     HOW TO USE
@@ -15,9 +33,12 @@ const aplbumsApi = createApi({
         Add a 'reducerPath' to the api object
     4- the api neeeds to know how and where to end requests.
         Add a 'baseQuery' to the api object
-    5- Add 'endpoint' one for each kind of request you want to make.
+    5- Add 'endpoints' one for each kind of request you want to make.
         Reqs that read data are called 'queries', 
-        write data are called 'mutations'       
+        write data are called 'mutations'
+    6- export all of the automatically generated hooks   
+    7- connect the API to the store. Reducer, middleware and listeners     
+    8- export the hooks from the store/index.js file
 */
 
 /*
